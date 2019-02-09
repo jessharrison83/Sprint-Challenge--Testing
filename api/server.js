@@ -25,13 +25,43 @@ server.delete("/games/:id", (req, res) => {
     });
 });
 
-server.get("/games/:id", async (req, res) => {
-  const { id } = req.params;
-  const games = await db("games").where("id", id);
-  if (games) {
-    res.status(200).json(games);
+server.post("/games", async (req, res) => {
+  const newGame = req.body;
+  if (newGame.title && newGame.genre) {
+    const game = await db("games").insert(newGame);
+    res.status(201).json(game);
+  } else if (!newGame.title && !newGame.genre) {
+    res.status(422).json({ message: "object cannot be empty" });
+  } else if (!newGame.title) {
+    res.status(422).json({ message: "must have title" });
   } else {
-    res.status(404).json({ message: "could not find that game" });
+    res.status(422).json({ message: "must have genre" });
   }
+});
+
+// server.get("/games/:id", async (req, res) => {
+//   const { id } = req.params;
+//   const games = await db("games").where("id", id);
+//   if (games) {
+//     res.status(200).json(games);
+//   } else {
+//     res.status(404).json({ message: "could not find that game" });
+//   }
+// });
+
+server.get("/games/:id", (req, res) => {
+  const { id } = req.params;
+  db("games")
+    .where("id", id)
+    .then(game => {
+      if (game) {
+        res.status(200).json(game);
+      } else {
+        res.status(404).json({ message: "game not found" });
+      }
+    })
+    .catch(err => {
+      res.send(err);
+    });
 });
 module.exports = server;

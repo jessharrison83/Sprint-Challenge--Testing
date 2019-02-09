@@ -12,10 +12,6 @@ describe("the route handlers", () => {
       });
     });
   });
-
-  afterEach(async () => {
-    await db.migrate.rollback();
-  });
   describe("get /games", () => {
     it("returns a list of games", async () => {
       const response = await request(server).get("/games");
@@ -54,7 +50,7 @@ describe("the route handlers", () => {
       expect(response.status).toBe(422);
     });
     it("returns a 422 if new game object has no genre", async () => {
-      const body = { name: "Final Fantasy" };
+      const body = { title: "Final Fantasy" };
       const response = await request(server)
         .post("/games")
         .send(body);
