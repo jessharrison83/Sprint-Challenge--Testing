@@ -62,6 +62,10 @@ describe("the route handlers", () => {
       const response = await request(server).delete("/games/1");
       expect(response.body).toEqual(1);
     });
+    it("returns status code 200 if successful", async () => {
+      const response = await request(server).delete("/games/1");
+      expect(response.status).toBe(200);
+    });
     it("returns a 404 if game does not exist", async () => {
       const response = await request(server).delete("/games/57");
       expect(response.status).toBe(404);
@@ -71,6 +75,10 @@ describe("the route handlers", () => {
     it("returns a 404 if game does not exist", async () => {
       const response = await request(server).get("/games/90");
       expect(response.status).toBe(404);
+    });
+    it("returns status code 200 if successful", async () => {
+      const response = await request(server).get("/games/1");
+      expect(response.status).toBe(200);
     });
     it("returns game object if successful", async () => {
       const response = await request(server).get("/games/1");
