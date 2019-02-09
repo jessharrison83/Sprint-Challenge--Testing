@@ -2,6 +2,17 @@
 
 This challenge allows you to practice the concepts and techniques learned over the past week and apply them in a concrete project. This Sprint explored Testing. During this Sprint, you studied Introduction to Automated Testing, Testing React Applications & Testing Web APIs. In your challenge this week, you will demonstrate proficiency by creating an application that follows the TDD pattern to create a simple Web API using Node.js and Express.
 
+## Project Set Up
+
+Follow these steps to setup your git _fork_ and _branch_.
+
+- [ ] Fork this repository.
+- [ ] Use GitHub's website to add your project manager as collaborator on **your fork**.
+- [ ] **Clone your forked version** of the repository (**Not Lambda's**!).
+- [ ] Create a new branch: `git checkout -b <firstName-lastName>`.
+- [ ] Commit changes to your `<firstName-lastName>` branch.
+- [ ] Push often to your branch: `git push origin <firstName-lastName>`.
+
 ## Instructions
 
 **Read these instructions carefully. Understand exactly what is expected _before_ starting this Sprint Challenge.**
