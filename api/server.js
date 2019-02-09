@@ -12,6 +12,7 @@ server.get("/games", async (req, res) => {
 server.delete("/games/:id", (req, res) => {
   const { id } = req.params;
   db("games")
+    .where("id", id)
     .del(id)
     .then(response => {
       if (response) {
@@ -38,30 +39,29 @@ server.post("/games", async (req, res) => {
     res.status(422).json({ message: "must have genre" });
   }
 });
-
-// server.get("/games/:id", async (req, res) => {
-//   const { id } = req.params;
-//   const games = await db("games").where("id", id);
-//   if (games) {
-//     res.status(200).json(games);
-//   } else {
-//     res.status(404).json({ message: "could not find that game" });
-//   }
-// });
-
-server.get("/games/:id", (req, res) => {
+server.get("/games/:id", async (req, res) => {
   const { id } = req.params;
-  db("games")
-    .where("id", id)
-    .then(game => {
-      if (game) {
-        res.status(200).json(game);
-      } else {
-        res.status(404).json({ message: "game not found" });
-      }
-    })
-    .catch(err => {
-      res.send(err);
-    });
+  const game = await db("games").where("id", id);
+  if (game[0]) {
+    res.status(200).json(game);
+  } else {
+    res.status(404).json({ message: "game not found" });
+  }
 });
+
+// server.get("/games/:id", (req, res) => {
+//   const { id } = req.params;
+//   db("games")
+//     .where("id", id)
+//     .then(game => {
+//       if (game) {
+//         res.status(200).json(game);
+//       } else {
+//         res.status(404).json({ message: "game not found" });
+//       }
+//     })
+//     .catch(err => {
+//       res.send(err);
+//     });
+// });
 module.exports = server;
